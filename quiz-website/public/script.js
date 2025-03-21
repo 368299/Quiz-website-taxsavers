@@ -85,6 +85,23 @@ function loadQuestion() {
     });
 }
 
+fetch('https://quiz-website-taxsavers.onrender.com') 
+        .then(response => response.json())
+        .then(data => {
+            let currentQuestion = data; // This is the quiz data coming from the backend
+            questionEl.textContent = currentQuestion.question;
+            optionsEl.innerHTML = "";
+
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsEl.appendChild(button);
+            });
+        })
+        .catch(error => console.log('Error fetching quiz data:', error));
+}
+
 function checkAnswer(selected) {
     clearInterval(timer);
     let correctAnswer = questions[currentQuestionIndex].answer;
