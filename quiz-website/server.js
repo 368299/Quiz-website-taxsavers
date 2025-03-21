@@ -7,6 +7,15 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
 
+app.use(cors({
+    origin:'https://tts-quiz.netlify.app/',
+    methods: ['GET','POST']
+}));
+
+app.get('/api/quiz', (req, res) => {
+    res.json({ message: 'Hello from backend!' });  // Modify this with the actual quiz data
+});
+
 app.post("/save", (req, res) => {
     const { name, email, phone, score } = req.body;
     const data = `${name},${email},${phone},${score}\n`;
